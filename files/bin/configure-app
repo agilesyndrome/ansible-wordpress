@@ -28,7 +28,7 @@ do
         --dbprefix=${DB_PREFIX:-wp_}
     
     #This might fuck things up if run twice against the same database?
-    wp-cli core install
+    wp-cli core install \
         --allow-root \
         --no-color \
         --path=/workspace/wp/${item} \
