@@ -1,5 +1,10 @@
 secrets-starting-with syndromepress | while read item
 do
+
+    mkdir -p /workspace/wp/${item}/themes 
+    mkdir -p /workspace/wp/${item}/plugins
+    mkdir -p /workspace/wp/${item}/users
+
     WORDPRESS_CONFIG=$(secret ${item})
     WP_PATH=$(echo ${WORDPRESS_CONFIG} | jq -r '.path')
     DB_NAME=$(echo ${WORDPRESS_CONFIG} | jq -r '.dbname')
@@ -11,7 +16,7 @@ do
     ADMIN_EMAIL=$(echo ${WORDPRESS_CONFIG} | jq -r '.admin_email')
     ADMIN_PASSWORD=$(echo ${WORDPRESS_CONFIG} | jq -r '.admin_password')
     WP_TITLE=$(echo ${WORDPRESS_CONFIG} | jq -r '.title')
-    WP_URL=$(echo ${WORDPRESS_CONFIG} | jq -r '.url)
+    WP_URL=$(echo ${WORDPRESS_CONFIG} | jq -r '.url')
     
     wp-cli core config \
         --allow-root --no-color \
@@ -32,6 +37,11 @@ do
         --admin_name="${ADMIN_NAME}" \
         --admin_email="${ADMIN_EMAIL}" \
         --admin_password="${ADMIN_PASSWORD}"
+    
+    # TODO: Pull and loop from another source
+
+    wp-theme ${item} twentytwelve --activate
+    wp-plugin ${item} contact-form-7
     
 
 done

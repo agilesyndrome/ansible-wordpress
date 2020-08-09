@@ -1,6 +1,5 @@
 secrets-starting-with syndromepress | while read item
 do
-    mkdir -p /workspace/wp/${item}
     wp-cli core download \
         --allow-root \
         --no-color \

@@ -4,6 +4,5 @@
   apt:
     pkg:
     - mysql-client
-
-#/workspace/wp/${ITEM}
+  
 

@@ -1,0 +1,4 @@
+item=${1}
+PLUGIN_NAME=${2}
+wp-cli --allow-root --no-color --path=/workspace/wp/${item} plugin install ${PLUGIN_NAME}
+wp-cli --allow-root --no-color --path=/workspace/wp/${item} plugin activate ${PLUGIN_NAME}
