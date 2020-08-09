@@ -26,13 +26,19 @@
 
 - name: core | configure
   command: >
+    WORDPRESS_CONFIG=$(secret {{item.secret}}/{{item.environment}})
+    DB_NAME=$(echo ${WORDPRESS_CONFIG} | jq -r '.dbname')
+    DB_USER=$(echo ${WORDPRESS_CONFIG} | jq -r '.dbuser')
+    DB_PASS=$(echo ${WORDPRESS_CONFIG} | jq -r '.dbpass')
+    DB_HOST=$(echo ${WORDPRESS_CONFIG} | jq -r '.dbhost')
+    DB_PREFIX=$(echo ${WORDPRESS_CONFIG} | jq -r '.dbprefix')
     wp-cli core config
     --allow-root --no-color --path='{{ item.path }}'
-    --dbname='{{ item.dbname }}'
-    --dbuser='{{ item.dbuser }}'
-    --dbpass='{{ item.dbpass }}'
-    --dbhost='{{ item.dbhost | default('localhost') }}'
-    --dbprefix='{{ item.dbprefix | default('wp_') }}'
+    --dbname=${DB_NAME:-wordpress}
+    --dbuser=${DB_USER}
+    --dbuser=${DB_PASS}
+    --dbhost=${DB_HOST:-localhost}
+    --dbprefix=${DB_PREFIX:-wp_}
   args:
     creates: "{{ item.path }}/wp-config.php"
   with_items: "{{ wordpress_installs }}"
@@ -52,12 +58,17 @@
 
 - name: core | install
   command: >
+    WORDPRESS_CONFIG=$(secret {{item.secret}}/{{item.environment}})
+    ADMIN_NAME=$(echo ${WORDPRESS_CONFIG} | jq -r '.admin_name')
+    ADMIN_EMAIL=$(echo ${WORDPRESS_CONFIG} | jq -r '.admin_email')
+    ADMIN_PASSWORD=$(echo ${WORDPRESS_CONFIG} | jq -r '.admin_password')
+    ADMIN_EMAIL=$()
     wp-cli core install
     --allow-root --no-color --path='{{ item.item.path }}'
     --url='{{ item.item.url }}' --title='{{ item.item.title }}'
-    --admin_name='{{ item.item.admin_name | default('admin') }}'
-    --admin_email='{{ item.item.admin_email }}'
-    --admin_password='{{ item.item.admin_password }}'
+    --admin_name="${ADMIN_NAME}"
+    --admin_email="${ADMIN_EMAIL}"
+    --admin_password="${ADMIN_PASSWORD}"
   with_items: "{{ _check_installation.results | default([]) }}"
   when: item.rc != 0
   tags:
