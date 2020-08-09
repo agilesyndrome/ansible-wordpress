@@ -1,5 +1,9 @@
 # tasks file for wordpress, core
 ---
+- name: MySQL-Tools
+  apt:
+    name: mysql-tools
+
 - name: core | check download
   command: >
     test -f {{ item.path }}/wp-load.php
