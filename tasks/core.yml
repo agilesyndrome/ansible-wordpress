@@ -1,85 +1,9 @@
 # tasks file for wordpress, core
 ---
-- name: Install mysql-tools
+- name: Install MySQL client tool
   apt:
     pkg:
-    - mysql-tools
+    - mysql-client
 
-- name: core | check download
-  command: >
-    test -f {{ item.path }}/wp-load.php
-  register: _check_download
-  failed_when: false
-  changed_when: false
-  with_items: "{{ wordpress_installs }}"
-  tags:
-    - wordpress-core-is-downloaded
+#/workspace/wp/${ITEM}
 
-- name: core | download
-  command: >
-    wp-cli core download
-    --allow-root --no-color --path='{{ item.item.path }}'
-    --locale='{{ item.item.locale | default('en_US') }}'
-  with_items: "{{ _check_download.results | default([]) }}"
-  when: item.rc != 0
-  tags:
-    - wordpress-core-downloaded
-
-- name: core | configure
-  command: >
-    WORDPRESS_CONFIG=$(secret {{item.secret}}/{{item.environment}})
-    DB_NAME=$(echo ${WORDPRESS_CONFIG} | jq -r '.dbname')
-    DB_USER=$(echo ${WORDPRESS_CONFIG} | jq -r '.dbuser')
-    DB_PASS=$(echo ${WORDPRESS_CONFIG} | jq -r '.dbpass')
-    DB_HOST=$(echo ${WORDPRESS_CONFIG} | jq -r '.dbhost')
-    DB_PREFIX=$(echo ${WORDPRESS_CONFIG} | jq -r '.dbprefix')
-    wp-cli core config
-    --allow-root --no-color --path='{{ item.path }}'
-    --dbname=${DB_NAME:-wordpress}
-    --dbuser=${DB_USER}
-    --dbuser=${DB_PASS}
-    --dbhost=${DB_HOST:-localhost}
-    --dbprefix=${DB_PREFIX:-wp_}
-  args:
-    creates: "{{ item.path }}/wp-config.php"
-  with_items: "{{ wordpress_installs }}"
-  tags:
-    - wordpress-core-configure
-
-- name: core | identify installation
-  command: >
-    wp-cli core is-installed
-    --allow-root --no-color --path='{{ item.path }}'
-  register: _check_installation
-  failed_when: false
-  changed_when: false
-  with_items: "{{ wordpress_installs }}"
-  tags:
-    - wordpress-core-is-installed
-
-- name: core | install
-  command: >
-    WORDPRESS_CONFIG=$(secret {{item.secret}}/{{item.environment}})
-    ADMIN_NAME=$(echo ${WORDPRESS_CONFIG} | jq -r '.admin_name')
-    ADMIN_EMAIL=$(echo ${WORDPRESS_CONFIG} | jq -r '.admin_email')
-    ADMIN_PASSWORD=$(echo ${WORDPRESS_CONFIG} | jq -r '.admin_password')
-    ADMIN_EMAIL=$()
-    wp-cli core install
-    --allow-root --no-color --path='{{ item.item.path }}'
-    --url='{{ item.item.url }}' --title='{{ item.item.title }}'
-    --admin_name="${ADMIN_NAME}"
-    --admin_email="${ADMIN_EMAIL}"
-    --admin_password="${ADMIN_PASSWORD}"
-  with_items: "{{ _check_installation.results | default([]) }}"
-  when: item.rc != 0
-  tags:
-    - wordpress-core-install
-
-- name: core | check install
-  command: >
-    wp-cli core is-installed
-    --allow-root --no-color --path='{{ item.path }}'
-  changed_when: false
-  with_items: "{{ wordpress_installs }}"
-  tags:
-    - wordpress-core-install-check

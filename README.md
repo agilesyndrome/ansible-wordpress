@@ -1,11 +1,10 @@
-## wordpress
+# Wordpress
 
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-wordpress.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-wordpress) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-wordpress-blue.svg)](https://galaxy.ansible.com/Oefenweb/wordpress)
-
-Set up (multiple) wordpress installations in Debian-like systems (using `wp-cli`).
+## Forked from Oefenweb/wordpress on Aug-9 2020
 
 #### Requirements
 
+* `agilesyndrome.foundation` (WIP)
 * `php` (5.3.2+)
 * `mysql` (5.0+)
 * `apache2` (with `mod_rewrite` enabled)
