@@ -1,8 +1,9 @@
 # tasks file for wordpress, core
 ---
-- name: MySQL-Tools
+- name: Install mysql-tools
   apt:
-    name: mysql-tools
+    pkg:
+    - mysql-tools
 
 - name: core | check download
   command: >
