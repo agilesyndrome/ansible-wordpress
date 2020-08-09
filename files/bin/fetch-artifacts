@@ -1,8 +1,5 @@
-secrets-starting-with syndromepress | while read item
+PROEJCT=$(env-or-tag Project wordpress)
+secrets-starting-with ${PROJECT} | while read item
 do
-    wp-cli core download \
-        --allow-root \
-        --no-color \
-        --path=/workspace/wp/${item} \
-        --locale=en_US
+    
 done

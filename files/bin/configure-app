@@ -1,4 +1,5 @@
-secrets-starting-with syndromepress | while read item
+PROJECT=$(env-or-tag Project wordpress)
+secrets-starting-with ${PROJECT} | while read item
 do
 
     mkdir -p /workspace/wp/${item}/themes 
@@ -17,6 +18,12 @@ do
     ADMIN_PASSWORD=$(echo ${WORDPRESS_CONFIG} | jq -r '.admin_password')
     WP_TITLE=$(echo ${WORDPRESS_CONFIG} | jq -r '.title')
     WP_URL=$(echo ${WORDPRESS_CONFIG} | jq -r '.url')
+
+    wp-cli core download \
+        --allow-root \
+        --no-color \
+        --path=/workspace/wp/${item} \
+        --locale=en_US
     
     wp-cli core config \
         --allow-root --no-color \
