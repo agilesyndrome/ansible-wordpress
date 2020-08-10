@@ -4,4 +4,6 @@
   apt:
     pkg:
     - mysql-client
+- name: Start the Frontend
+  shell: fe-start
   
