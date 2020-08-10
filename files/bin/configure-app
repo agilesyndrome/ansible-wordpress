@@ -51,8 +51,8 @@ do
     
     # TODO: Pull and loop from another source
 
-    wp-theme ${item} twentythirteen --activate
-    wp-plugin ${item} contact-form-7
+    #wp-theme ${item} twentythirteen --activate
+    #wp-plugin ${item} contact-form-7
 
     fe-config-php /workspace/wp/${item} ${WP_SITE:-local.devpho.be}
     
