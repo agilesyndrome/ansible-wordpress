@@ -30,7 +30,7 @@ do
         --path=/workspace/wp/${item} \
         --dbname=${DB_NAME:-wordpress} \
         --dbuser=${DB_USER} \
-        --dbuser=${DB_PASS} \
+        --dbpass=${DB_PASS} \
         --dbhost=${DB_HOST:-localhost} \
         --dbprefix=${DB_PREFIX:-wp_}
     
