@@ -1,0 +1,59 @@
+#!/bin/bash
+set -ex
+PROJECT=$(env-or-tag Project wordpress)
+secrets-starting-with ${PROJECT} | while read item
+do
+
+    mkdir -p /workspace/wp/${item}/themes 
+    mkdir -p /workspace/wp/${item}/plugins
+    mkdir -p /workspace/wp/${item}/users
+
+    WORDPRESS_CONFIG=$(secret ${item})
+    WP_PATH=$(echo ${WORDPRESS_CONFIG} | jq -r '.path')
+    DB_NAME=$(echo ${WORDPRESS_CONFIG} | jq -r '.dbname')
+    DB_USER=$(echo ${WORDPRESS_CONFIG} | jq -r '.dbuser')
+    DB_PASS=$(echo ${WORDPRESS_CONFIG} | jq -r '.dbpass')
+    DB_HOST=$(echo ${WORDPRESS_CONFIG} | jq -r '.dbhost')
+    DB_PREFIX=$(echo ${WORDPRESS_CONFIG} | jq -r '.dbprefix')
+    ADMIN_NAME=$(echo ${WORDPRESS_CONFIG} | jq -r '.admin_name')
+    ADMIN_EMAIL=$(echo ${WORDPRESS_CONFIG} | jq -r '.admin_email')
+    ADMIN_PASSWORD=$(echo ${WORDPRESS_CONFIG} | jq -r '.admin_password')
+    WP_TITLE=$(echo ${WORDPRESS_CONFIG} | jq -r '.title')
+    WP_VERSION=$(echo ${WORDPRESS_CONFIG} | jq -r '.version')
+    WP_SITE=$(echo ${WORDPRESS_CONFIG} | jq -r '.site')
+
+    wp-cli core download \
+        --allow-root \
+        --no-color \
+        --path=/workspace/wp/${item} \
+        --locale=en_US \
+        --version=${WP_VERSION:-latest}
+    
+    wp-cli core config \
+        --allow-root --no-color \
+        --path=/workspace/wp/${item} \
+        --dbname=${DB_NAME:-wordpress} \
+        --dbuser=${DB_USER} \
+        --dbpass=${DB_PASS} \
+        --dbhost=${DB_HOST:-localhost} \
+        --dbprefix=${DB_PREFIX:-wp_}
+    
+    #This might fuck things up if run twice against the same database?
+    wp-cli core install \
+        --allow-root \
+        --no-color \
+        --path=/workspace/wp/${item} \
+        --url=http://${WP_SITE} \
+        --title="${WP_TITLE}" \
+        --admin_name="${ADMIN_NAME}" \
+        --admin_email="${ADMIN_EMAIL}" \
+        --admin_password="${ADMIN_PASSWORD}"
+    
+    # TODO: Pull and loop from another source
+
+    
+    
+    wp-plugins ${item}
+    wp-themes ${item}
+
+done
