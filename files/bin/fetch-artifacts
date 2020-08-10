@@ -1,5 +1,1 @@
-PROEJCT=$(env-or-tag Project wordpress)
-secrets-starting-with ${PROJECT} | while read item
-do
-    
-done
+# Nothing to do here
