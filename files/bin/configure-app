@@ -25,7 +25,8 @@ do
         --allow-root \
         --no-color \
         --path=/workspace/wp/${item} \
-        --locale=en_US
+        --locale=en_US \
+        --version=${WP_VERSION:-latest}
     
     wp-cli core config \
         --allow-root --no-color \
@@ -37,19 +38,19 @@ do
         --dbprefix=${DB_PREFIX:-wp_}
     
     #This might fuck things up if run twice against the same database?
-    wp-cli core install \
-        --allow-root \
-        --no-color \
-        --path=/workspace/wp/${item} \
-        --url=${WP_URL} \
-        --title="${WP_TITLE}" \
-        --admin_name="${ADMIN_NAME}" \
-        --admin_email="${ADMIN_EMAIL}" \
-        --admin_password="${ADMIN_PASSWORD}"
+    #wp-cli core install \
+    #    --allow-root \
+    #    --no-color \
+    #    --path=/workspace/wp/${item} \
+    #    --url=${WP_URL} \
+    #    --title="${WP_TITLE}" \
+    #    --admin_name="${ADMIN_NAME}" \
+    #    --admin_email="${ADMIN_EMAIL}" \
+    #    --admin_password="${ADMIN_PASSWORD}"
     
     # TODO: Pull and loop from another source
 
-    wp-theme ${item} twentytwelve --activate
+    wp-theme ${item} twentythirteen --activate
     wp-plugin ${item} contact-form-7
     
 

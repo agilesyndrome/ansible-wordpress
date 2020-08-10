@@ -2,8 +2,8 @@ item=${1}
 THEME_NAME=${2}
 ACTIVATE=${3}
 
-wp-cli --allow-root --no-color --path=/workspace/wp/${item} theme install twentytwelve
+wp-cli --allow-root --no-color --path=/workspace/wp/${item} theme install ${THEME_NAME}
 
 if [ "${ACTIVATE}" == "--activate" ]; then
-    wp-cli --allow-root --no-color --path=/workspace/wp/${item} theme activate twentyeleven
+    wp-cli --allow-root --no-color --path=/workspace/wp/${item} theme activate ${THEME_NAME}
 fi
