@@ -1,5 +1,7 @@
 #!/bin/bash
 set -ex
+AWS_REGION=us-east-2
+AWS_DEFAULT_REGION=us-east-2
 PROJECT=$(env-or-tag Project wordpress)
 secrets-starting-with ${PROJECT} | while read item
 do
