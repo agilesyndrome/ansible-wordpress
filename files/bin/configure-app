@@ -20,7 +20,7 @@ do
     ADMIN_PASSWORD=$(echo ${WORDPRESS_CONFIG} | jq -r '.admin_password')
     WP_TITLE=$(echo ${WORDPRESS_CONFIG} | jq -r '.title')
     WP_VERSION=$(echo ${WORDPRESS_CONFIG} | jq -r '.version')
-    WP_URL=$(echo ${WORDPRESS_CONFIG} | jq -r '.url')
+    WP_SITE=$(echo ${WORDPRESS_CONFIG} | jq -r '.site')
 
     wp-cli core download \
         --allow-root \
@@ -53,6 +53,8 @@ do
 
     wp-theme ${item} twentythirteen --activate
     wp-plugin ${item} contact-form-7
+
+    fe-config-php /workspace/wp/${item} ${WP_SITE:-local.devpho.be}
     
 
 done
