@@ -1,0 +1,12 @@
+item=${1}
+WP_PATH=/workspace/wp/${item}
+
+if [ -f ${WP_PATH}/themes.txt ]; then
+    cat ${WP_PATH}/themes.txt | while read THEME_NAME
+        echo "Installing theme/${THEME_NAME} for ${item}"
+        wp-cli --allow-root --no-color --path=/workspace/wp/${item} theme install ${THEME_NAME}
+    done
+
+    # Activate the last theme
+    wp-cli --allow-root --no-color --path=/workspace/wp/${item} theme activate ${THEME_NAME}
+fi

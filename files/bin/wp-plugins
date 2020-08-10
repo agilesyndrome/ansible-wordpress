@@ -1,0 +1,11 @@
+item=${1}
+
+WP_PATH=/workspace/wp/${item}
+
+if [ -f ${WP_PATH}/plugins.txt ]; then
+    cat ${WP_PATH}/plugins.txt | while read PLUGIN_NAME
+        echo "Installing plugin/${PLUGIN_NAME} for ${item}"
+        wp-cli --allow-root --no-color --path=${WP_PATH} plugin install ${PLUGIN_NAME}
+        wp-cli --allow-root --no-color --path=${WP_PATH} plugin activate ${PLUGIN_NAME}
+    done
+fi
