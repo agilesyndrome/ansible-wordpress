@@ -1,5 +1,5 @@
 #!/bin/bash
-set +x
+set -ex
 PROJECT=$(env-or-tag Project wordpress)
 secrets-starting-with ${PROJECT} | while read item
 do
@@ -42,7 +42,7 @@ do
         --no-color \
         --path=/workspace/wp/${item} \
         --url=${WP_URL} \
-        --title=${WP_TITLE} \
+        --title="${WP_TITLE}" \
         --admin_name="${ADMIN_NAME}" \
         --admin_email="${ADMIN_EMAIL}" \
         --admin_password="${ADMIN_PASSWORD}"
