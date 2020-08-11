@@ -1,0 +1,7 @@
+[template]
+src = "wp-install.sh.tmpl"
+dest = "/workspace/config/temp/wp-install"
+mode = "0755"
+keys = [
+    "/options"
+]

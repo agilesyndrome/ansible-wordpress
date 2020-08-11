@@ -1,0 +1,10 @@
+#!/bin/bash
+set -ex
+PROJECT=$(env-or-tag Project wordpress)
+secrets-starting-with ${PROJECT} | while read item
+do
+    
+    wp-plugins ${item}
+    wp-themes ${item}
+
+done

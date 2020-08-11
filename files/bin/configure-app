@@ -5,8 +5,24 @@ AWS_DEFAULT_REGION=us-east-2
 PROJECT=$(env-or-tag Project wordpress)
 secrets-starting-with ${PROJECT} | while read item
 do
-    WORDPRESS_CONFIG=$(secret ${item})
-    WP_SITE=$(echo ${WORDPRESS_CONFIG} | jq -r '.site')
+  
+    #Generate wp-* config files for each item
+    mkdir -p /workspace/config/temp
+    mkdir -p /workspace/config/${item}
+    rm -rf /workspace/config/${item}
+    conf-update
+    mv /workspace/config/temp /workspace/config/${item}
+
+    # Run config scripts
+    . wp-env
+    /workspace/config/${item}/wp-download
+    /workspace/config/${item}/wp-config
+    /workspace/config/${item}/wp-install
+    /workspace/config/${item}/wp-plugins
+    /workspace/config/${item}/wp-themes
+
     fe-config-php /workspace/wp/${item} ${WP_SITE:-local.devpho.be}
-    fe-start
+    
 done
+
+fe-start

@@ -1,0 +1,7 @@
+[template]
+src = "wp-plugins.sh.tmpl"
+dest = "/workspace/config/temp/wp-plugins"
+mode = "0755"
+keys = [
+    "/plugins"
+]
