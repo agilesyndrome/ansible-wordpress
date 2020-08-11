@@ -1,6 +1,6 @@
 # tasks file for wordpress
 ---
-- include: binfiles.yml
+- include: files.yml
 - include: wp-cli.yml
 - include: core.yml
 

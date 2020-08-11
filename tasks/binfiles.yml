@@ -1,7 +1,0 @@
-- name: Copy bin files
-  copy:
-    src: bin/
-    dest: /bin/
-    owner: root
-    group: root
-    mode: '0755'

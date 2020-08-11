@@ -1,0 +1,14 @@
+- name: Copy bin files
+  copy:
+    src: bin/
+    dest: /bin/
+    owner: root
+    group: root
+    mode: '0755'
+- name: Copy config files
+  copy:
+    src: config/
+    dest: /config/
+    owner: root
+    group: root
+    mode: '0644'
