@@ -1,0 +1,16 @@
+wp-cli core is-installed --path={{getv "/root"}}
+NEEDS_INSTALL=$?
+
+if [ "${NEEDS_INSTALL}" == "1" ]; then
+    wp-cli core install \
+        --path={{getv "/root"}} \
+        --title="{{getv "/options/title" }}" \
+        --url=http://localhost \
+        --admin_name="{{getv "/admin/name"}}" \
+        --admin_email="{{getv "/admin/email"}}" \
+        --admin_password="{{getv "/admin/password"}}"
+
+else
+    echo "Success: WP is already installed for {{getv "/root"}}"
+fi
+

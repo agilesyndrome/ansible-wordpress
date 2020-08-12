@@ -1,10 +1,10 @@
-mkdir -p /workspace/wp/{{getenv "item"}}
+mkdir -p {{getv "/root"}}
 
 # TODO: Put bug-fix into wp-cli core is-installed to return a proper error code.
 # TODO: Assist with caching at: Using cached file '/home/appbot/.wp-cli/cache/core/wordpress-5.4.2-en_US.zip'...
 
 wp-cli core download \
-    --path=/workspace/wp/{{getenv "item"}} \
+    --path={{getv "/root"}} \
     --locale={{getv "/download/locale" "en_GB"}} \
     --skip-content \
     --version={{getv "/download/version" "latest"}} \

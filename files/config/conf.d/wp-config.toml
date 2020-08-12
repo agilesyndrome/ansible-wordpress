@@ -1,8 +1,0 @@
-[template]
-src = "wp-config.sh.tmpl"
-dest = "/workspace/config/temp/wp-config"
-mode = "0755"
-keys = [
-    "/config_raw",
-    "/config"
-]

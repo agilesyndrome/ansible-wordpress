@@ -1,8 +1,0 @@
-[template]
-src = "wp-themes.sh.tmpl"
-dest = "/workspace/config/temp/wp-themes"
-mode = "0755"
-keys = [
-    "/themes",
-    "/current"
-]

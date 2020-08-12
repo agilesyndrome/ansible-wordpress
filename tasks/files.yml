@@ -12,3 +12,8 @@
     owner: root
     group: root
     mode: '0644'
+- name: Change sites-enabled permissions
+  file:
+    path: /etc/nginx/sites-enabled/
+    owner: appbot
+    group: appbot

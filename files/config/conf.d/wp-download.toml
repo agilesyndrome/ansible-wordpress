@@ -1,7 +1,0 @@
-[template]
-src = "wp-download.sh.tmpl"
-dest = "/workspace/config/temp/wp-download"
-mode = "0755"
-keys = [
-    "/download"
-]
