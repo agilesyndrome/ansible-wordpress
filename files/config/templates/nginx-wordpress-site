@@ -1,4 +1,5 @@
 server {
+	listen 8888;
 	root {{getv "/root"}};
 	
 	# Add index.php to the list if you are using PHP

@@ -1,0 +1,6 @@
+/etc/default/global permission denied
++x hanging around somewhere
+
+pid file at /workspace
+remove user from nginx.conf
+
