@@ -6,7 +6,7 @@ param keys | while read wpenv; do
    cat /config/templates/wp-install.tmpl | configfile ssm $wpenv | bash
    cat /config/templates/wp-plugins.tmpl | configfile ssm $wpenv | bash
    cat /config/templates/wp-themes.tmpl | configfile ssm $wpenv | bash
+   cat /config/templates/nginx-wordpress-site | configfile ssm $wpenv > /etc/nginx/sites-enabled/$wpenv.conf
 done
- 
 
 fe-start

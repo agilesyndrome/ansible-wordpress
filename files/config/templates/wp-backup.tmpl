@@ -1,0 +1,4 @@
+cd {{getv "/root"}}
+rm -f wp.tar.gz
+tar -czvf wp.tar.gz {{getv "/root"}}
+aws s3 cp wp.tar.gz s3://${S3_BUCKET}/builds/${item}/0.tar.gz

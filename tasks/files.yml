@@ -17,3 +17,12 @@
     path: /etc/nginx/sites-enabled/
     owner: appbot
     group: appbot
+    recurse: yes
+    state: directory
+- name: Change nginx log permissions
+  file:
+    path: /var/log/nginx
+    owner: appbot
+    group: appbot
+    recurse: yes
+    state: directory
