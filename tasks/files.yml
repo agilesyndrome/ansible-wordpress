@@ -19,14 +19,14 @@
     group: appbot
     recurse: yes
     state: directory
-- name: Change nginx log permissions
-  file:
-    path: /var/log/nginx
-    owner: appbot
-    group: appbot
-    recurse: yes
-    state: directory
-- name: Change nginx log permissions
+#- name: Change nginx log permissions
+#  file:
+#    path: /var/log/nginx
+#    owner: appbot
+#    group: appbot
+#    recurse: yes
+#    state: directory
+- name: Change nginx lib permissions
   file:
     path: /var/lib/nginx
     owner: appbot
