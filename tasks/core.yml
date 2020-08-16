@@ -4,6 +4,12 @@
   apt:
     pkg:
     - mysql-client
+- name: Install the PHP Upstream
+  template:
+    src: nginx.conf
+    dest: /etc/nginx/conf.d/upstream_php.conf
+    owner: root
+    group: root
 - name: Start the Frontend
   shell: fe-start
   
