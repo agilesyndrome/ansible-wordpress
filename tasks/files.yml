@@ -12,3 +12,14 @@
     owner: root
     group: root
     mode: '0644'
+- name: Setup PHP Upstream
+  copy:
+    content: |
+      upstream php {
+        server unix:/tmp/php-cgi.socket;
+        server 127.0.0.1:9000;
+      }
+    dest: /etc/nginx/conf.d/upstream_php.conf
+    owner: root
+    group: root
+    mode: '0644'
