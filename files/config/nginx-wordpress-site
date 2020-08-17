@@ -1,11 +1,10 @@
 server {
-	listen 8888;
 	root {{getv "/root"}};
 	
 	# Add index.php to the list if you are using PHP
 	index index.php;
 
-	server_name {{getv "/host" "local.devpho.be"}};
+	server_name {{getv "/host" }};
 
 	location ~ \.php$ {
         include fastcgi_params;
