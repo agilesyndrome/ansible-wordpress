@@ -6,7 +6,7 @@
     - mysql-client
 - name: Install the PHP Upstream
   template:
-    src: nginx.conf
+    src: upstream_php.conf
     dest: /etc/nginx/conf.d/upstream_php.conf
     owner: root
     group: root
