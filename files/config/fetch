@@ -3,5 +3,5 @@ set -e
 set -o pipefail
 
 param keys | while read wpenv; do
-  cat /config/templates/wp-download.tmpl | configfile ssm $wpenv | bash
+  cat ~/config/wp-download.tmpl | configfile ssm $wpenv | bash
 done
