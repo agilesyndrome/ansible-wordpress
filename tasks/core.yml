@@ -4,6 +4,10 @@
   apt:
     pkg:
     - mysql-client
+- name: Remove nginx pid file if it exists
+  file:
+    path: /workspace/run/nginx.pid
+    state: absent
 - name: Install the PHP Upstream
   template:
     src: upstream_php.conf
