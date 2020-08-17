@@ -2,9 +2,9 @@
 set -ex
 
 param keys | while read wpenv; do
-   cat /config/templates/wp-config.tmpl | configfile ssm $wpenv | bash
-   cat /config/templates/wp-install.tmpl | configfile ssm $wpenv | bash
-   cat /config/templates/wp-plugins.tmpl | configfile ssm $wpenv | bash
-   cat /config/templates/wp-themes.tmpl | configfile ssm $wpenv | bash
-   cat /config/templates/nginx-wordpress-site | configfile ssm $wpenv > /etc/nginx/sites-enabled/$wpenv.conf
+   cat ~/config/wp-config.tmpl | configfile ssm $wpenv | bash
+   cat ~/config/wp-install.tmpl | configfile ssm $wpenv | bash
+   cat ~/config/wp-plugins.tmpl | configfile ssm $wpenv | bash
+   cat ~/config/wp-themes.tmpl | configfile ssm $wpenv | bash
+   cat ~/config/nginx-wordpress-site | configfile ssm $wpenv > /etc/nginx/sites-enabled/$wpenv.conf
 done
